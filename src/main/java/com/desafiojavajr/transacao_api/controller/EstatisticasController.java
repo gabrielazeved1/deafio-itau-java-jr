@@ -29,7 +29,7 @@ public class EstatisticasController {
     })
     public ResponseEntity<EstatisticasResponseDTO> buscarEstatisticas(
             // define um parametro opcional para o intervalo de tempo com valor padrao de 60 segundos
-            @RequestParam(value = "intervaloBusca", required = false, defaultValue = "60") Integer intervaloBusca) {
+            @RequestParam(value = "intervaloBusca", required = false, defaultValue = "3600") Integer intervaloBusca) {
         // chama o servico para calcular e retorna o resultado com status http 200 ok
         return ResponseEntity.ok(
                 estatisticasService.calcularEstatisticasTransacoes(intervaloBusca));
