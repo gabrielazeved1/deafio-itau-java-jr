@@ -1,5 +1,6 @@
 package com.desafiojavajr.transacao_api.controller.dtos;
 
-public record TransacaoRequestDTO(Double valorDouble) {
-    
+import java.time.OffsetDateTime;
+
+public record TransacaoRequestDTO(Double valor, OffsetDateTime dataHora) {
 }
