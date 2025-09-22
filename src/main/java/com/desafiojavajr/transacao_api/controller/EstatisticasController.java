@@ -1,35 +1,54 @@
 package com.desafiojavajr.transacao_api.controller;
 
-import com.javanauta.transacao_api.business.services.EstatisticasService;
-import com.javanauta.transacao_api.controller.dtos.EstatisticasResponseDTO;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.javanauta.transacao_api.controller.dtos.TransacaoRequestDTO;
+import com.javanauta.transacao_api.infrastructure.exceptions.UnprocessableEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("/estatistica")
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 @RequiredArgsConstructor
-public class EstatisticasController {
+@Slf4j
+public class TransacaoService {
 
-    private final EstatisticasService estatisticasService;
+    private final List<TransacaoRequestDTO> listaTransacoes = new ArrayList<>();
 
-    @GetMapping
-    @Operation(description = "Endpoint responsável por buscar estatísticas de transações")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Busca efetuada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Erro na busca de estatísticas de transações"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    })
-    public ResponseEntity<EstatisticasResponseDTO> buscarEstatisticas(
-            @RequestParam(value = "intervaloBusca", required = false, defaultValue = "60") Integer intervaloBusca){
-        return ResponseEntity.ok(
-                estatisticasService.calcularEstatisticasTransacoes(intervaloBusca));
+    public void adicionarTransacoes(TransacaoRequestDTO dto){
+
+        log.info("Iniciado o processamento de gravar transações " + dto);
+
+        if(dto.dataHora().isAfter(OffsetDateTime.now())){
+            log.error("Data e hora maiores que a data atual");
+            throw new UnprocessableEntity("Data e hora maiores que a data e hora atuais");
+        }
+        if(dto.valor() < 0){
+            log.error("Valor não pode ser menor que 0");
+            throw new UnprocessableEntity("Valor não pode ser menor que 0");
+        }
+
+        listaTransacoes.add(dto);
+        log.info("Transacoes adicionadas com sucesso");
+    }
+
+    public void limparTransacoes(){
+        log.info("Iniciado processamento para deletar transações");
+        listaTransacoes.clear();
+        log.info("Transações deletadas com sucesso");
+    }
+
+    public List<TransacaoRequestDTO> buscarTransacoes(Integer intervaloBusca){
+        log.info("Inicadas buscas de transações por tempo " + intervaloBusca);
+        OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(intervaloBusca);
+
+        log.info("Retorno de transações com sucesso");
+        return listaTransacoes.stream()
+                .filter(transacao -> transacao.dataHora()
+                        .isAfter(dataHoraIntervalo)).toList();
+
     }
 
 }
