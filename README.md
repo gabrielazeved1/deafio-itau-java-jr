@@ -51,7 +51,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 ``` 
 ## Papel de Cada Arquivo Principal
 
-- **TransacaoService:** É o coração da lógica de negócio. Valida e armazena as transações recebidas.
+- **TransacaoService:** Valida e armazena as transações recebidas.
 
 - **EstatisticasService:** Responsável por filtrar as transações dentro da janela de tempo e calcular as estatísticas usando `DoubleSummaryStatistics` para maior performance.
 
@@ -61,7 +61,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 
 - **build.gradle.kts:** O "mapa" do projeto para o Gradle. Define as informações do projeto, as versões das ferramentas e, mais importante, todas as bibliotecas e frameworks necessários (as dependências).
 
-- **Dockerfile:** Uma "receita" que ensina o Docker a empacotar a aplicação em um contêiner, garantindo que ela rode de forma consistente em qualquer ambiente.
+- **Dockerfile:** Empacotar a aplicação em um contêiner, garantindo que ela rode de forma consistente em qualquer ambiente.
 
 ---
 
