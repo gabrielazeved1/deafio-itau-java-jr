@@ -148,7 +148,6 @@ Eu utilizei o **Insomnia** para realizar os testes manuais dos endpoints.
     "min": 150.75,
     "max": 150.75
 }
--
 ```
 ### 3. Limpar Todas as Transações
 
