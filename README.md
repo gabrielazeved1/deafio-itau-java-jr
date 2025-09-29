@@ -96,7 +96,7 @@ Certifique-se de ter o **Java 21 (JDK)** instalado.
 ### 1. Clone o Repositório
 
 ```bash
-git clone <url-do-seu-repositorio>
+git clone git@github.com:gabrielazeved1/deafio-itau-java-jr.git
 ```
 ### 2. Navegue até a Pasta do Projeto
 ```bash
