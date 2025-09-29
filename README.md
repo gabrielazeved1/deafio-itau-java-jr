@@ -47,7 +47,8 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 │ │ └── TransacaoApiApplication.java # Ponto de entrada da aplicação
 │ └── test # Testes unitários e de integração
 ├── build.gradle.kts # Arquivo de configuração e dependências (Gradle)
-└── Dockerfile # Arquivo para containerização da aplicação
+├── Dockerfile # Arquivo para containerização da aplicação
+└── images  # Pasta com as capturas de tela dos testes
 ``` 
 ## Papel de Cada Arquivo Principal
 
@@ -76,7 +77,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 - **Lombok:** Uma biblioteca que reduz código repetitivo (boilerplate) no Java, gerando automaticamente getters, setters e construtores através de anotações como `@RequiredArgsConstructor`.
 
 - **Springdoc OpenAPI:** Gera automaticamente uma documentação interativa da API (Swagger UI) a partir do código, facilitando o teste e a compreensão dos endpoints.
-
+- **Ferramenta de Teste Manual:** Insomnia
 ---
 
 ## Armazenamento de Dados
@@ -155,6 +156,38 @@ Eu utilizei o **Insomnia** para realizar os testes manuais dos endpoints.
 - **URL:** `http://localhost:8080/transacao`
 
 - **Resposta Esperada:** Status `200 OK`.
+---
+## Como Testar a API (usando Insomnia)
+
+Eu utilizei o **Insomnia** para realizar todos os testes manuais dos endpoints, como demonstrado nas imagens abaixo.
+
+---
+
+### 1. Adicionar uma Transação (POST)
+
+Para adicionar uma nova transação, foi feita uma requisição **POST** para `/transacao` com os dados da transação no corpo.  
+A API respondeu com **201 Created**, confirmando o sucesso.
+
+![Adicionar Transação](images/adicionar-transacao.png)
+
+---
+
+### 2. Consultar as Estatísticas (GET)
+
+Imediatamente após adicionar a transação, uma requisição **GET** para `/estatistica` foi feita.  
+Como a chamada ocorreu dentro da janela de **60 segundos**, a API retornou as estatísticas corretas, com `count: 1`.
+
+![Consultar Estatísticas](images/consultar-estatisticas.png)
+
+---
+
+### 3. Consultando Estatísticas com Intervalo Estendido
+
+Para verificar o estado de todas as transações em memória e depurar a lógica de tempo, foi utilizada uma requisição **GET** com o parâmetro `intervaloBusca`.  
+A imagem abaixo mostra o resultado com **2 transações acumuladas** de testes anteriores, confirmando que o armazenamento em memória está funcionando como esperado.
+
+![Estatísticas Intervalo Estendido](images/estatisticas-intervalo.png)
+
 ---
 ## Documentação (Swagger UI)
 
