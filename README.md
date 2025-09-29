@@ -51,7 +51,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 ``` 
 ## Papel de Cada Arquivo Principal
 
-- **TransacaoService:** É o coração da lógica de negócio. Valida e armazena as transações recebidas.
+- **TransacaoService:** Valida e armazena as transações recebidas.
 
 - **EstatisticasService:** Responsável por filtrar as transações dentro da janela de tempo e calcular as estatísticas usando `DoubleSummaryStatistics` para maior performance.
 
@@ -61,7 +61,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
 
 - **build.gradle.kts:** O "mapa" do projeto para o Gradle. Define as informações do projeto, as versões das ferramentas e, mais importante, todas as bibliotecas e frameworks necessários (as dependências).
 
-- **Dockerfile:** Uma "receita" que ensina o Docker a empacotar a aplicação em um contêiner, garantindo que ela rode de forma consistente em qualquer ambiente.
+- **Dockerfile:** Empacotar a aplicação em um contêiner, garantindo que ela rode de forma consistente em qualquer ambiente.
 
 ---
 
@@ -96,7 +96,7 @@ Certifique-se de ter o **Java 21 (JDK)** instalado.
 ### 1. Clone o Repositório
 
 ```bash
-git clone <url-do-seu-repositorio>
+git clone git@github.com:gabrielazeved1/deafio-itau-java-jr.git
 ```
 ### 2. Navegue até a Pasta do Projeto
 ```bash
@@ -148,7 +148,7 @@ Eu utilizei o **Insomnia** para realizar os testes manuais dos endpoints.
     "min": 150.75,
     "max": 150.75
 }
-- ```
+```
 ### 3. Limpar Todas as Transações
 
 - **Método:** DELETE
